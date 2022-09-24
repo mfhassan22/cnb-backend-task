@@ -47,7 +47,6 @@ app.get('/users/:page/:per_page', function(req, res){
 
 app.get('/user/:id', function(req, res){
    let user=users_list.filter((user)=>user.id==req.params.id)[0]
-   console.log(user);
    res.send({data:{
     'id':user.id,
     'email':user.email,
@@ -92,9 +91,7 @@ app.post('/user/', function(req, res){
  app.delete('/user/:id', function(req, res){
     const {id}=req.params;
     let starting_len=users_list.length;
-    console.log(starting_len);
     users_list=users_list.filter(user=>user.id!=id)
-    console.log(users_list.length);
     let result="error"
     if(users_list.length<starting_len)result="success"
     res.send({data:{status:result}});
@@ -104,8 +101,6 @@ app.post('/user/', function(req, res){
     const {email,password}=req.body;
     var flage=false;
     let user_exists=users_list.filter((user)=>user.email==email)[0]
-    console.log(user_exists)
-    //console.log(user_exists.password+"    "+md5(password))
     if(user_exists){
         if(user_exists.password==md5(password)){
             flage=true;
@@ -132,4 +127,4 @@ app.post('/user/', function(req, res){
         })
     }
  });
-app.listen(3000);
+app.listen(80);
